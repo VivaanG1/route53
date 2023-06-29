@@ -9,6 +9,7 @@ terraform {
 
 provider "aws" {
   region   = "eu-west-1"
-  role_arn = "arn:aws:iam::856970428305:role/iamrolegithub"
-
+  assume_role {
+    role_arn = "arn:aws:iam::856970428305:role/iamrolegithub"
+  }
 }
