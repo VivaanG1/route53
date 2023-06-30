@@ -1,7 +1,7 @@
 variable "domain_1" {
   description = "AWS pUblic hosted zone 1"
   type        = string
-  default     = "vivaan.subodh.com"
+  default     = "vanshu.subodh.com"
 }
 
 variable "domain_2" {
