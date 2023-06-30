@@ -1,0 +1,45 @@
+name: DEPLOY TO TEST
+on:
+  push:
+    branches: 
+      - main
+
+jobs:
+  deploy-to-test:
+    runs-on: self-hosted
+    permissions:
+      id-token: write 
+      contents: read
+    steps:
+      - name: Checkout repository code 
+        uses: actions/checkout@v3
+        
+      - uses: actions/setup-node@v3
+        name: setup node
+        with:
+          node-version: 18
+
+      - name: configure aws credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          role-to-assume: "arn:aws:iam::856970428305:role/iamrolegithub"
+          role-session-name: aws-terraform-state-session
+          aws-region: "eu-west-1"     
+
+      - uses: hashicorp/setup-terraform@v2
+        name: Setup Terraform
+        with: 
+          terraform_version: 1.4.6
+          
+      - name: Terraform Init
+        run: |
+          terraform init -backend-config backend-config-test.tfvars 
+        
+      - name: Terraform Plan
+        run: |
+          terraform plan 
+
+      - name: Terraform execute
+        run: |
+          terraform apply -auto-approve
+          
