@@ -1,4 +1,4 @@
 module "dns" {
-  source = "./stacks/dns"
+  source = "./dns"
   environment = var.environment
 }
