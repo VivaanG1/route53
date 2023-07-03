@@ -1,4 +1,4 @@
 module "dns" {
-  source = "./dns"
+  source      = "./dns"
   environment = var.environment
 }
